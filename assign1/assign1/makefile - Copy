@@ -1,0 +1,21 @@
+#the macro CC is the C compiler to use, 
+CC=gcc
+#The -I. is included so that gcc will look in the current directory (.) for the include file *.h
+CFLAGS=-I.
+#the macro DEPS, which is the set of .h files on which the .c files depend
+DEPS = storage_mgr.h dberror.h test_helper.h
+OBJ = storage_mgr.o dberror.o test_assign1_1.o
+
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+test_assign1_1: $(OBJ)
+	@echo 'Building target: $@'
+	$(CC) -o $@ $^ $(CFLAGS)
+	@echo 'Finished building target: $@'
+	@echo ' '
+
+.PHONY: all clean
+	
+#clean:
+#   -rm -f *.o
